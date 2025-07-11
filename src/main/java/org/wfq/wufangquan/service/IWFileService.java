@@ -1,0 +1,25 @@
+package org.wfq.wufangquan.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.wfq.wufangquan.controller.requestFormation.uploadSubmitRequest;
+import org.wfq.wufangquan.entity.regen.WFile;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * <p>
+ *  服务类
+ * </p>
+ *
+ * @author Centripet
+ * @since 2025-06-21
+ */
+public interface IWFileService extends IService<WFile> {
+
+    String uploadSubmit(String userId, uploadSubmitRequest request);
+
+    List<WFile> uploadSubmitMult(String userId, Map<uploadSubmitRequest, Boolean> keyMap);
+
+    Map<String, Object> getFileById(String file_id);
+}

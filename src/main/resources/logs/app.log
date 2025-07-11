@@ -1,0 +1,130 @@
+2025-07-12 02:01:45.452 [restartedMain] INFO  o.w.wufangquan.WufangquanApplication - Starting WufangquanApplication using Java 17.0.2 with PID 9288 (X:\IDEA_Work_X\wufangquan\target\classes started by Admin in X:\IDEA_Work_X\wufangquan)
+2025-07-12 02:01:45.457 [restartedMain] INFO  o.w.wufangquan.WufangquanApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-12 02:01:45.514 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-07-12 02:01:45.515 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-07-12 02:01:46.619 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-12 02:01:46.622 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-12 02:01:46.664 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2025-07-12 02:01:47.648 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 48080 (http)
+2025-07-12 02:01:47.667 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-48080"]
+2025-07-12 02:01:47.669 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-12 02:01:47.669 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-07-12 02:01:47.767 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-12 02:01:47.768 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2253 ms
+2025-07-12 02:01:49.949 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-07-12 02:01:50.128 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 37 mappings in 'requestMappingHandlerMapping'
+2025-07-12 02:01:50.184 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-07-12 02:01:50.311 [restartedMain] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-07-12 02:01:50.363 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2025-07-12 02:01:50.427 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2025-07-12 02:01:50.433 [restartedMain] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2c91905e
+2025-07-12 02:01:50.760 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-07-12 02:01:50.819 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-48080"]
+2025-07-12 02:01:50.829 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 48080 (http) with context path '/'
+2025-07-12 02:01:50.842 [restartedMain] INFO  o.w.wufangquan.WufangquanApplication - Started WufangquanApplication in 5.994 seconds (process running for 6.891)
+2025-07-12 02:02:12.245 [http-nio-48080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-12 02:02:12.245 [http-nio-48080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-07-12 02:02:12.245 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-07-12 02:02:12.245 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-07-12 02:02:12.245 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-07-12 02:02:12.246 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1aa2daba
+2025-07-12 02:02:12.247 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@be86bba
+2025-07-12 02:02:12.247 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-07-12 02:02:12.247 [http-nio-48080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-07-12 02:02:12.274 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/index.html", parameters={}
+2025-07-12 02:02:12.278 [http-nio-48080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.307 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.357 [http-nio-48080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/swagger-ui.css", parameters={}
+2025-07-12 02:02:12.358 [http-nio-48080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.363 [http-nio-48080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/index.css", parameters={}
+2025-07-12 02:02:12.364 [http-nio-48080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.367 [http-nio-48080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/swagger-ui-standalone-preset.js", parameters={}
+2025-07-12 02:02:12.367 [http-nio-48080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/swagger-ui-bundle.js", parameters={}
+2025-07-12 02:02:12.367 [http-nio-48080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/swagger-initializer.js", parameters={}
+2025-07-12 02:02:12.368 [http-nio-48080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.368 [http-nio-48080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.368 [http-nio-48080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.368 [http-nio-48080-exec-4] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.369 [http-nio-48080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.381 [http-nio-48080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.408 [http-nio-48080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.416 [http-nio-48080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.654 [http-nio-48080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api-docs/swagger-config", parameters={}
+2025-07-12 02:02:12.656 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springdoc.webmvc.ui.SwaggerConfigResource#openapiJson(HttpServletRequest)
+2025-07-12 02:02:12.658 [http-nio-48080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/swagger-ui/favicon-32x32.png", parameters={}
+2025-07-12 02:02:12.660 [http-nio-48080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2025-07-12 02:02:12.663 [http-nio-48080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.685 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json]
+2025-07-12 02:02:12.717 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [{configUrl=/api-docs/swagger-config, oauth2RedirectUrl=http://localhost:48080/swagger-ui/oauth2-redi (truncated)...]
+2025-07-12 02:02:12.732 [http-nio-48080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:02:12.749 [http-nio-48080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api-docs", parameters={}
+2025-07-12 02:02:12.749 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson(HttpServletRequest, String, Locale)
+2025-07-12 02:02:13.334 [http-nio-48080-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 570 ms
+2025-07-12 02:02:13.361 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, */*] and supported [application/json]
+2025-07-12 02:02:13.364 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [{123, 34, 111, 112, 101, 110, 97, 112, 105, 34, 58, 34, 51, 46, 49, 46, 48, 34, 44, 34, 105, 110, 10 (truncated)...]
+2025-07-12 02:02:13.365 [http-nio-48080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:03:29.364 [http-nio-48080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:03:29.365 [http-nio-48080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:03:29.380 [http-nio-48080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=123, device=string]]
+2025-07-12 02:03:29.402 [http-nio-48080-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-12 02:03:29.598 [http-nio-48080-exec-5] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f7353db
+2025-07-12 02:03:29.599 [http-nio-48080-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-12 02:03:29.671 [http-nio-48080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:03:29.671 [http-nio-48080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@3b855a48]
+2025-07-12 02:03:29.672 [http-nio-48080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:03:40.779 [http-nio-48080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:03:40.779 [http-nio-48080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:03:40.780 [http-nio-48080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=123456, device=string]]
+2025-07-12 02:03:40.787 [http-nio-48080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:03:40.787 [http-nio-48080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@5b26469d]
+2025-07-12 02:03:40.788 [http-nio-48080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:03:44.196 [http-nio-48080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:03:44.197 [http-nio-48080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:03:44.197 [http-nio-48080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=123456, device=string]]
+2025-07-12 02:03:44.202 [http-nio-48080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:03:44.203 [http-nio-48080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@740e1e18]
+2025-07-12 02:03:44.204 [http-nio-48080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:03:58.129 [http-nio-48080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:03:58.130 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:03:58.131 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=123456, device=null]]
+2025-07-12 02:03:58.136 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:03:58.136 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@3e34912c]
+2025-07-12 02:03:58.137 [http-nio-48080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:04:09.747 [http-nio-48080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:04:09.747 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:04:09.748 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=123, device=null]]
+2025-07-12 02:04:09.753 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:04:09.753 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@7acb59e8]
+2025-07-12 02:04:09.754 [http-nio-48080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:04:18.780 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:04:18.780 [http-nio-48080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:04:18.781 [http-nio-48080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=13613480352, device=null]]
+2025-07-12 02:04:18.786 [http-nio-48080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:04:18.787 [http-nio-48080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@1a4f8711]
+2025-07-12 02:04:18.788 [http-nio-48080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:04:51.737 [http-nio-48080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/login", parameters={}
+2025-07-12 02:04:51.738 [http-nio-48080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#login(loginRequest, HttpServletResponse)
+2025-07-12 02:04:51.738 [http-nio-48080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [loginRequest[account=Centripet, passwordHash=123456a, device=null]]
+2025-07-12 02:04:52.138 [http-nio-48080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:04:52.139 [http-nio-48080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@88b823f]
+2025-07-12 02:04:52.140 [http-nio-48080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:05:29.521 [http-nio-48080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/sendCaptcha", parameters={}
+2025-07-12 02:05:29.521 [http-nio-48080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#sendCode(sendCodeRequest)
+2025-07-12 02:05:29.523 [http-nio-48080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [sendCodeRequest[str=Centripet, method=account]]
+2025-07-12 02:05:30.336 [http-nio-48080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:05:30.336 [http-nio-48080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@6c39f66e]
+2025-07-12 02:05:30.337 [http-nio-48080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:08:59.835 [http-nio-48080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/logout", parameters={}
+2025-07-12 02:08:59.835 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#logout(String, HttpServletResponse)
+2025-07-12 02:08:59.843 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:08:59.844 [http-nio-48080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@79df6eee]
+2025-07-12 02:08:59.845 [http-nio-48080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:09:07.295 [http-nio-48080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/oath/logout", parameters={}
+2025-07-12 02:09:07.295 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.wfq.wufangquan.controller.authController#logout(String, HttpServletResponse)
+2025-07-12 02:09:07.296 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-07-12 02:09:07.296 [http-nio-48080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [org.wfq.wufangquan.wrapper.responseHandle.ApiResponse@6b376e1f]
+2025-07-12 02:09:07.297 [http-nio-48080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-07-12 02:09:37.699 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-12 02:09:37.859 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-07-12 02:09:37.879 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-12 02:09:37.887 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
