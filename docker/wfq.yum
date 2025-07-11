@@ -1,0 +1,60 @@
+version: '3.8'
+# docker-compose -f mdb.yum up 
+services:
+  jdk17:
+    image: jdk_wfq
+    container_name: boot
+    ports:
+      - "48080:48080"
+    volumes:
+      - ./logs:/app/src/main/resources/logs  # 映射日志目录
+    environment:
+      - TZ=Asia/Shanghai
+
+  mysqldb:
+    image: mysql:8.0
+    container_name: ms8
+    environment:
+      MYSQL_ROOT_PASSWORD: W2316195243
+      MYSQL_DATABASE: wufangquan
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: W2316195243
+      TZ: Asia/Shanghai
+      LANG: C.UTF-8
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "43307:3306"
+    volumes:
+      - mysqldb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: rds
+    ports:
+      - "46379:6379"
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: unless-stopped
+
+  kkfileview:
+    image: keking/kkfileview:latest
+    container_name: kkf
+    restart: unless-stopped
+    ports:
+      - "48012:8012"
+    volumes:
+      - ./files:/opt/kkfileview/files      # 缓存文件目录
+#      - ./conf:/opt/kkfileview/conf        # 可选：自定义配置目录
+    environment:
+      - KKFILEVIEW_CACHE_ENABLE=true       # 启用缓存功能
+
+volumes:
+  mysqldb_data:
+  redis-data:

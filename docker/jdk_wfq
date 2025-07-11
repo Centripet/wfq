@@ -1,0 +1,14 @@
+# 使用官方 OpenJDK 作为基础镜像
+FROM openjdk:17-jdk-slim
+
+# 设置时区（可选）
+ENV TZ=Asia/Shanghai
+
+# 创建工作目录（可选）
+WORKDIR /app
+
+# 将 jar 包复制进容器
+COPY wufangquan-0.0.1-SNAPSHOT.jar wufangquan-0.0.1-SNAPSHOT.jar
+
+# 设置启动命令
+ENTRYPOINT ["java", "-jar", "wufangquan-0.0.1-SNAPSHOT.jar"]
