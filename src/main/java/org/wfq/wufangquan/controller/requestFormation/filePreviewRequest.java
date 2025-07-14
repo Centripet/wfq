@@ -1,4 +1,4 @@
-package org.wfq.wufangquan.entity.regen;
+package org.wfq.wufangquan.controller.requestFormation;
 
 import jakarta.validation.constraints.NotNull;
 

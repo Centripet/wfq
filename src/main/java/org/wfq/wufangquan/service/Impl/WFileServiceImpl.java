@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import org.wfq.wufangquan.controller.requestFormation.uploadSubmitRequest;
 import org.wfq.wufangquan.entity.regen.WFile;
 import org.wfq.wufangquan.mapper.WFileMapper;
+import org.wfq.wufangquan.service.AliOssService;
 import org.wfq.wufangquan.service.IWFileService;
+import org.wfq.wufangquan.service.kkFileViewService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.wfq.wufangquan.util.CaptchaGenerator.generateUUID;
 
@@ -31,6 +32,9 @@ import static org.wfq.wufangquan.util.CaptchaGenerator.generateUUID;
 public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements IWFileService {
 
     private final WFileMapper wFileMapper;
+    private final AliOssService ossService;
+    private final kkFileViewService fileViewService;
+    private final AliOssService aliOssService;
 
     @Override
     public String uploadSubmit(String userId, uploadSubmitRequest request) {
@@ -85,4 +89,40 @@ public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements
 
         return BeanUtil.beanToMap(file);
     }
+
+    @Override
+    public String fileGetUrl(Map<String, Object> file) {
+        String file_key = (String) file.get("file_key");
+        if ((Boolean) file.get("is_public_read")) {
+            return ossService.generatePublicUrl(file_key);
+        } else {
+            return ossService.generateDownloadUrl(file_key, AliOssService.EXPIRE_TIME_HALF_HOUR);
+        }
+
+    }
+
+    @Override
+    public String filePreviewUrl(Map<String, Object> file) {
+        String file_key = (String) file.get("file_key");
+        if ((Boolean) file.get("is_public_read")) {
+            String url = ossService.generatePublicUrl(file_key);
+            return fileViewService.generateKkFilePreviewUrl(url);
+        } else {
+            String url = ossService.generateDownloadUrl(file_key, AliOssService.EXPIRE_TIME_TEN_MIN);
+            return fileViewService.generateKkFilePreviewUrl(url);
+        }
+
+    }
+
+    @Override
+    public Map<String, Object> filePreview(String file_id) {
+        Map<String, Object> file = this.getFileById(file_id);
+        String url = this.filePreviewUrl(file);
+        file.put("preview_url", url);
+        return file;
+    }
+
+
+
+
 }

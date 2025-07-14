@@ -49,6 +49,8 @@ public class WFile implements Serializable {
 
     private String origin_name;
 
+    private long file_size;
+
     @TableField(exist = false)
     private String oss_url;
 

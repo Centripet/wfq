@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.wfq.wufangquan.controller.requestFormation.fileUploadRequest;
 import org.wfq.wufangquan.controller.requestFormation.uploadSubmitRequest;
 import org.wfq.wufangquan.entity.JwtPayload;
+import org.wfq.wufangquan.controller.requestFormation.filePreviewRequest;
 import org.wfq.wufangquan.service.AliOssService;
 import org.wfq.wufangquan.service.IWFileService;
 import org.wfq.wufangquan.wrapper.responseHandle.ApiResponse;
@@ -75,5 +76,16 @@ public class WFileController {
 
         return ApiResponse.success(Map.of("file_id", fileService.uploadSubmit(user_id, request)));
     }
+
+    @PostMapping("/filePreview")
+    @ApiResponseWrap
+    public ApiResponse<?>  filePreview(
+            @RequestBody filePreviewRequest request,
+            HttpServletResponse response
+    ) {
+
+        return ApiResponse.success(fileService.filePreview(request.file_id()));
+    }
+
 
 }

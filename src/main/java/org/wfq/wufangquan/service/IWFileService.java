@@ -1,6 +1,7 @@
 package org.wfq.wufangquan.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.wfq.wufangquan.controller.requestFormation.filePreviewRequest;
 import org.wfq.wufangquan.controller.requestFormation.uploadSubmitRequest;
 import org.wfq.wufangquan.entity.regen.WFile;
 
@@ -22,4 +23,13 @@ public interface IWFileService extends IService<WFile> {
     List<WFile> uploadSubmitMult(String userId, Map<uploadSubmitRequest, Boolean> keyMap);
 
     Map<String, Object> getFileById(String file_id);
+
+
+    String fileGetUrl(Map<String, Object> file);
+
+    String filePreviewUrl(Map<String, Object> file);
+
+    Map<String, Object> filePreview(String file_id);
+
+
 }

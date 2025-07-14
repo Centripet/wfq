@@ -118,7 +118,7 @@ public class WNoticeController {
 //            File file = aliOssService.downloadFromOss(key);
 //            String previewUrl = fileViewService.uploadToKkFileView(file);
 
-            String signedUrl = aliOssService.generateDownloadUrl(key, 300);
+            String signedUrl = aliOssService.generateDownloadUrl(key, AliOssService.EXPIRE_TIME_TEN_MIN);
             String previewUrl = fileViewService.generateKkFilePreviewUrl(signedUrl);
 
             pub.put("preview", previewUrl);

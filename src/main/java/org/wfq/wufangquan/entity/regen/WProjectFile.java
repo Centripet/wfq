@@ -30,7 +30,7 @@ public class WProjectFile implements Serializable {
     @TableId("task_id")
     private String task_id;
 
-    private LocalDateTime file_id;
+    private String file_id;
 
     private LocalDateTime create_time;
 
