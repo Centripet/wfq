@@ -34,3 +34,4 @@ build/
 
 AliSmsService.java
 AliOssService.java
+.log
