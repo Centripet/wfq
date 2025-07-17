@@ -1,12 +1,13 @@
 package org.wfq.wufangquan.service;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.wfq.wufangquan.controller.requestFormation.loginRequest;
-import org.wfq.wufangquan.controller.requestFormation.registerRequest;
-import org.wfq.wufangquan.controller.requestFormation.resetPasswordRequest;
+import org.wfq.wufangquan.controller.requestFormation.*;
 import org.wfq.wufangquan.entity.regen.SUser;
 import org.wfq.wufangquan.entity.regen.WUser;
+import org.wfq.wufangquan.wrapper.responseHandle.ApiResponse;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,5 +31,9 @@ public interface IWUserService extends IService<WUser> {
     List<SUser> userSearch(String keyword);
 
     SUser userInfo(String user_id);
+
+    ApiResponse<?> userInfoModify(String userId, userInfoModifyRequest request);
+
+    List<Map<String, Object>> collectionList(String userId, collectionListRequest request);
 
 }

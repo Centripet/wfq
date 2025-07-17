@@ -81,7 +81,7 @@ public class WNoticeController {
             return ApiResponse.fail(500, "上传失败");
         }
 
-        String file_id = fileService.uploadSubmit(user_id, request);
+        String file_id = fileService.uploadSubmit(user_id, request, false);
         if (!noticeService.addPublicity(file_id)) {
             return ApiResponse.fail(500, "提交失败");
         };

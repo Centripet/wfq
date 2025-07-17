@@ -59,6 +59,9 @@ public class WUser implements Serializable {
 
     private String learning_url;
 
+    @TableField(exist = false)
+    private String icon_url;
+
     @Override
     public String toString() {
         return "WUser{" +
@@ -75,6 +78,7 @@ public class WUser implements Serializable {
         ", role = " + department +
         ", observer_url = " + observer_url +
         ", learning_url = " + learning_url +
+        ", icon_url = " + icon_url +
         "}";
     }
 }

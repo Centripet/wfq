@@ -37,7 +37,7 @@ public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements
     private final AliOssService aliOssService;
 
     @Override
-    public String uploadSubmit(String userId, uploadSubmitRequest request) {
+    public String uploadSubmit(String userId, uploadSubmitRequest request, boolean is_public_read) {
         String UUID = generateUUID();
         wFileMapper.insert(
                 WFile.builder()
@@ -49,7 +49,7 @@ public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements
                         .type(request.type())
                         .suffix(request.suffix())
                         .create_time(LocalDateTime.now())
-                        .is_public_read(false)
+                        .is_public_read(is_public_read)
                         .origin_name(request.origin_name())
                         .build()
         );

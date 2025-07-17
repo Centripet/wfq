@@ -38,6 +38,8 @@ public class WApplicationUser implements Serializable {
 
     private LocalDateTime last_open_time;
 
+    private Integer download_status;
+
     public static final String APP_ID = "app_id";
 
     public static final String USER_ID = "user_id";
@@ -47,6 +49,8 @@ public class WApplicationUser implements Serializable {
     public static final String DOWNLOAD_PROGRESS = "download_progress";
 
     public static final String LAST_OPEN_TIME = "last_open_time";
+
+    public static final String DOWNLOAD_STATUS = "download_status";
 
     @Override
     public String toString() {

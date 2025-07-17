@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public interface IWFileService extends IService<WFile> {
 
-    String uploadSubmit(String userId, uploadSubmitRequest request);
+    String uploadSubmit(String userId, uploadSubmitRequest request, boolean is_public_read);
 
     List<WFile> uploadSubmitMult(String userId, Map<uploadSubmitRequest, Boolean> keyMap);
 

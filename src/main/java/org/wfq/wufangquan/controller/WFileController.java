@@ -74,7 +74,7 @@ public class WFileController {
         JwtPayload payload = (JwtPayload) authentication.getPrincipal();
         String user_id = payload.getUser_id();
 
-        return ApiResponse.success(Map.of("file_id", fileService.uploadSubmit(user_id, request)));
+        return ApiResponse.success(Map.of("file_id", fileService.uploadSubmit(user_id, request, false)));
     }
 
     @PostMapping("/filePreview")

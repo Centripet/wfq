@@ -62,8 +62,6 @@ public class WProjectServiceImpl extends ServiceImpl<WProjectMapper, WProject> i
                             projectTasks.stream()
                                     .map(BeanUtil::beanToMap)
                                     .toList();
-                    Map<String, Object> mapTask = BeanUtil.beanToMap(projectTasks);
-
                     for (Map<String, Object> task : mapTasks) {
                         List<WProjectFile> taskFiles = wProjectFileMapper
                                 .getProjectFiles((String)task.get("task_id"));
@@ -73,7 +71,7 @@ public class WProjectServiceImpl extends ServiceImpl<WProjectMapper, WProject> i
                         }
                     }
 
-                    stage.put("task", mapTask);
+                    stage.put("task", mapTasks);
                 }
             }
 
