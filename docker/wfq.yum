@@ -1,5 +1,9 @@
 version: '3.8'
-# docker-compose -f mdb.yum up 
+# docker-compose -f wfq.yum up 
+# docker exec -it es bin/elasticsearch-create-enrollment-token -s kibana
+# docker exec -it es bin/elasticsearch-reset-password -u elastic
+# docker exec -it es bin/elasticsearch-users useradd kba -p W2316195243 -r kibana_system
+# docker exec -it es bin/elasticsearch-users roles kba -a kibana_admin
 services:
   jdk17:
     image: jdk_wfq
@@ -27,6 +31,11 @@ services:
       - "43307:3306"
     volumes:
       - mysqldb_data:/var/lib/mysql
+#chmod 644 ./mysql_conf/custom.cnf
+#docker exec -it ms8 sh
+#chmod 644 /etc/mysql/conf.d/custom.cnf
+#ls -l /etc/mysql/conf.d/custom.cnf
+      - ./mysql_conf/custom.cnf:/etc/mysql/conf.d/custom.cnf
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -55,6 +64,79 @@ services:
     environment:
       - KKFILEVIEW_CACHE_ENABLE=true       # 启用缓存功能
 
+  elasticsearch:
+    image: elasticsearch:7.17.28
+    container_name: es
+    environment:
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ELASTIC_PASSWORD=W2316195243
+    ports:
+      - "49200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  kibana:
+    image: kibana:7.17.28
+    container_name: kba
+    ports:
+      - "45601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: kba
+      ELASTICSEARCH_PASSWORD: W2316195243
+      ELASTICSEARCH_SSL_VERIFICATIONMODE: none  # 关闭自签名证书校验，开发用
+    depends_on:
+      - elasticsearch
+
+#docker exec fjm flink run /FlinkJob-1.0-SNAPSHOT.jar
+  flink-jobmanager:
+   image: flink:1.17-scala_2.12
+   container_name: fjm
+   ports:
+     - "48081:8081"
+   environment:
+     - |
+       FLINK_PROPERTIES=
+       jobmanager.rpc.address: flink-jobmanager
+       taskmanager.numberOfTaskSlots: 4
+       state.checkpoints.dir: file:///flink/checkpoints
+       state.savepoints.dir: file:///flink/savepoints
+       state.backend: filesystem
+   volumes:
+     - ./flink/checkpoints:/flink/checkpoints
+     - ./flink/savepoints:/flink/savepoints
+     - ./flink/jobmanager:/flink/jobmanager
+     - ./flink/jobs/FlinkJob-1.0-SNAPSHOT.jar:/FlinkJob-1.0-SNAPSHOT.jar
+     - ./flink/start-jobmanager.sh:/start-jobmanager.sh
+   command: ["bash", "/start-jobmanager.sh"]
+   networks:
+     - default
+
+  flink-taskmanager:
+    image: flink:1.17-scala_2.12
+    container_name: ftm
+    command: taskmanager
+    depends_on:
+      - flink-jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+        taskmanager.numberOfTaskSlots: 4
+    volumes:
+      - ./flink/taskmanager:/flink/taskmanager
+    networks:
+      - default
+
 volumes:
   mysqldb_data:
   redis-data:
+  es_data:

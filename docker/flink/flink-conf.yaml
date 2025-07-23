@@ -1,0 +1,19 @@
+state.backend: filesystem
+state.checkpoints.dir: file:///flink/checkpoints
+state.savepoints.dir: file:///flink/savepointsjobmanager.rpc.address: 91a286c08c47
+blob.server.port: 6124
+query.server.port: 6125
+
+jobmanager.rpc.address: flink-jobmanager
+taskmanager.numberOfTaskSlots: 4
+state.checkpoints.dir: file:///flink/checkpoints
+state.savepoints.dir: file:///flink/savepoints
+state.backend: filesystem
+
+
+jobmanager.rpc.address: flink-jobmanager
+taskmanager.numberOfTaskSlots: 4
+state.checkpoints.dir: file:///flink/checkpoints
+state.savepoints.dir: file:///flink/savepoints
+state.backend: filesystem
+

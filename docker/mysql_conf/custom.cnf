@@ -1,0 +1,40 @@
+[mysqld]
+# 基础配置
+user=mysql
+pid-file=/var/run/mysqld/mysqld.pid
+socket=/var/run/mysqld/mysqld.sock
+datadir=/var/lib/mysql
+
+# 连接相关
+max_connections=200
+max_connect_errors=1000
+
+# 字符集设置
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+
+# 时区设置
+default-time-zone = '+08:00'
+
+# 二进制日志配置
+log-bin=mysql-bin
+expire_logs_days=7       # 二进制日志保留7天
+binlog_expire_logs_seconds=1296000
+binlog_format=row        # 推荐使用 row 格式用于同步
+
+# InnoDB 配置
+innodb_buffer_pool_size=512M
+innodb_flush_log_at_trx_commit=1
+innodb_file_per_table=1
+
+# 其他常用配置
+skip-name-resolve
+
+# 错误日志
+log_error=/var/log/mysql/error.log
+
+# 慢查询日志
+slow_query_log=1
+slow_query_log_file=/var/log/mysql/mysql-slow.log
+long_query_time=2
+log_queries_not_using_indexes=1

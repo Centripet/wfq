@@ -2,6 +2,7 @@ package org.wfq.wufangquan.entity.regen;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.io.Serial;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("w_message")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WMessage implements Serializable {
 
     @Serial
@@ -45,6 +47,12 @@ public class WMessage implements Serializable {
     private String file_url;
 
     private Boolean is_read;
+
+    private String file_id;
+
+    private String file_key;
+
+    private String preview_url;
 
     public static final String MESSAGE_ID = "message_id";
 
@@ -76,6 +84,9 @@ public class WMessage implements Serializable {
         ", link_url = " + link_url +
         ", file_url = " + file_url +
         ", is_read = " + is_read +
+                ", file_id = " + file_id +
+                ", file_key = " + file_key +
+                ", preview_url = " + preview_url +
         "}";
     }
 }

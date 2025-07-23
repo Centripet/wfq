@@ -8,6 +8,7 @@ import org.wfq.wufangquan.entity.regen.WGroupMessage;
 import org.wfq.wufangquan.entity.res.TGroupMessage;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -74,5 +75,5 @@ public interface WGroupMessageMapper extends BaseMapper<WGroupMessage> {
         ORDER BY create_time DESC
         LIMIT #{limit} OFFSET #{offset};
 """)
-    List<WGroupMessage> messageHistory(String userId, String group_id, Integer size, int offset);
+    List<Map<String, Object>> messageHistory(String userId, String group_id, Integer limit, int offset);
 }

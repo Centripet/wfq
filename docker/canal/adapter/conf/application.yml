@@ -1,0 +1,17 @@
+canal.conf:
+  mode: tcp
+  canalServerHost: canal-server:11111
+  srcDataSources:
+    defaultDS:
+      url: jdbc:mysql://mysqldb:3306/wufangquan?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+      username: root
+      password: W2316195243
+  # 启用 es
+  syncSwitch:
+    defaultDS: true
+  destinations:
+    example:
+      adapterSync: true
+
+esMapping:
+  enable: true

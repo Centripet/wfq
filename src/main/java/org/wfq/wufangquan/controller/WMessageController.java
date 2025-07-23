@@ -133,7 +133,7 @@ public class WMessageController {
                 (req.page() == null) ? 1 : req.page(),
                 (req.size() == null) ? 10 : req.size()
         );
-
+        System.out.println(request);
         return switch (request.method()) {
             case "receiver" -> ApiResponse.success(messageService.messageHistory(user_id, request));
             case "group" -> ApiResponse.success(groupMessageService.messageHistory(user_id, request));

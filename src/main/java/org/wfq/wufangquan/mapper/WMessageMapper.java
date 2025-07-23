@@ -7,6 +7,7 @@ import org.wfq.wufangquan.entity.regen.WMessage;
 import org.wfq.wufangquan.entity.res.TMessage;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -56,5 +57,5 @@ public interface WMessageMapper extends BaseMapper<WMessage> {
         ORDER BY create_time DESC
         LIMIT #{limit} OFFSET #{offset};
 """)
-    Object messageHistory(String userId,String receiver_id, Integer size, int offset);
+    List<Map<String, Object>> messageHistory(String userId, String receiver_id, Integer limit, int offset);
 }

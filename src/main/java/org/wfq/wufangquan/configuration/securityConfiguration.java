@@ -40,7 +40,8 @@ public class securityConfiguration {
                                 "/webjars/**",
                                 "/swagger-resources",
                                 "/swagger-resources/**",
-                                "/api/oath/**"
+                                "/api/oath/**",
+                                "/api/about/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

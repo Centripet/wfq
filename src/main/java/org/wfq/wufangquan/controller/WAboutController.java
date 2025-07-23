@@ -1,5 +1,6 @@
 package org.wfq.wufangquan.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,21 +9,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wfq.wufangquan.entity.JwtPayload;
+import org.wfq.wufangquan.entity.regen.WAbout;
+import org.wfq.wufangquan.mapper.WAboutMapper;
+import org.wfq.wufangquan.wrapper.responseHandle.ApiResponse;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api/about")
 @RequiredArgsConstructor
-public class testController {
+public class WAboutController {
 
-    @PostMapping("/test")
-    public String register(@RequestBody String str) {
-        System.out.println(str);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-        String userId = payload.getUser_id();
-        System.out.println(userId);
-        return payload.toString();
+    private final WAboutMapper wAboutMapper;
+
+    @PostMapping("/about")
+    public ApiResponse<?> register(
+            HttpServletResponse response
+    ) {
+        List<WAbout> configList = wAboutMapper.selectList(null);
+        return ApiResponse.success(
+                configList.stream()
+                .collect(Collectors.toMap(WAbout::getAbout_name, WAbout::getAbout_value))
+        );
     }
 
 }

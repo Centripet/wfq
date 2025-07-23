@@ -5,6 +5,7 @@ import org.wfq.wufangquan.controller.requestFormation.messageHistoryRequest;
 import org.wfq.wufangquan.entity.regen.WMessage;
 import org.wfq.wufangquan.entity.res.TMessage;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,6 +21,6 @@ public interface IWMessageService extends IService<WMessage> {
 
     List<TMessage> sessionList(String userId);
 
-    Object messageHistory(String userId, messageHistoryRequest request);
+    List<Map<String, Object>> messageHistory(String userId, messageHistoryRequest request);
 
 }

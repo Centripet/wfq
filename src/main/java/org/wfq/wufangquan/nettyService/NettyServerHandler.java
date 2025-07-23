@@ -1,10 +1,12 @@
 package org.wfq.wufangquan.nettyService;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
@@ -14,11 +16,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.wfq.wufangquan.entity.regen.*;
-import org.wfq.wufangquan.service.IWGroupMessageService;
-import org.wfq.wufangquan.service.IWMessageService;
-import org.wfq.wufangquan.service.JwtService;
+import org.wfq.wufangquan.entity.res.uploadSubmit;
+import org.wfq.wufangquan.service.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -38,9 +41,12 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<TextWebSocke
     private final JwtService jwtService;
     private final IWMessageService messageService;
     private final IWGroupMessageService groupMessageService;
+    private final IWFileService fileService;
+    private final AliOssService ossService;
+    private final ObjectMapper objectMapper;
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame frame) throws JsonProcessingException {
+    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame frame) {
 // {
 //  "action": "auth",
 //  "token": "xxx",
@@ -71,17 +77,34 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<TextWebSocke
 //{
 //  "action": "message",
 //  "data": {
-//    "receiver_id": "Centripet",
-//    "content": "123456789",
-//    "type": "1",
+//    "receiver_id": "6c43d1a846944081acbdadf6b2cad897",
+//    "content": "bbbbb",
+//    "type": "2",
 //    "link_url": "",
-//    "file_url": ""
+//    "file_url": "",
+//    "file": {
+//        "key": "uploads/general/6c43d1a846944081acbdadf6b2cad897/2025/07/17/46dd02e7cbb14d2f8c85a5b54c890ea8.jpg",
+//        "suffix": ".jpg",
+//        "origin_name": "图片.jpg",
+//        "type": "1",
+//        "title": "图片",
+//        "info": "图片"
+//    }
 //  }
 //}
-        String msgJson = frame.text();
 
+        String msgJson = frame.text();
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(msgJson);
+        mapper.registerModule(new JavaTimeModule());
+
+        JsonNode root = null;
+        try {
+            root = mapper.readTree(msgJson);
+        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+            e.printStackTrace();
+            return;
+        }
 
         String action = root.get("action").asText();
         JsonNode dataNode = root.get("data");
@@ -128,20 +151,55 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<TextWebSocke
 
                 System.out.println(sender_id);
 
-                WMessage message = mapper.treeToValue(dataNode, WMessage.class);
-                if (StringUtils.isBlank(message.getContent())) {
-                    ctx.writeAndFlush(new TextWebSocketFrame("消息内容不能为空"));
+                WMessage message = null;
+                try {
+                    message = mapper.treeToValue(dataNode, WMessage.class);
+                    message.setCreate_time(LocalDateTime.now());
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
                     return;
                 }
+//                if (StringUtils.isBlank(message.getContent())) {
+//                    ctx.writeAndFlush(new TextWebSocketFrame("消息内容不能为空"));
+//                    return;
+//                }
 
                 message.setSender_id(sender_id);
                 message.setIs_read(true);
+                WFile file = null;
+                if (2<=message.getType() && message.getType()<=5) {
+                    uploadSubmit upload = null;
+                    try {
+                        upload = mapper.treeToValue(dataNode.get("file"), uploadSubmit.class);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    if (upload != null) {
+                        if (ossService.fileExists(upload.getKey())) {
+                            file = fileService.uploadSubmit(sender_id, upload, false);
+                            String url = ossService.generateDownloadUrl(file.getFile_key(), AliOssService.EXPIRE_TIME_7_DAY);
+                            message.setFile_url(url);
+                            message.setFile_id(file.getFile_id());
+                        } else {
+                            ctx.writeAndFlush(new TextWebSocketFrame("文件上传失败"));
+                            return;
+                        }
+                    }
+                }
 
                 String toUserId = message.getReceiver_id();
-                String messageReceive = mapper.writeValueAsString(dataNode);
+//                String messageReceive = mapper.writeValueAsString(dataNode);
+                Map<String, Object> messageReceive = BeanUtil.beanToMap(message);
+                messageReceive.put("file", file);
+
                 ChannelHandlerContext targetCtx = userChannelMap.get(toUserId);
                 if (targetCtx != null) {
-                    targetCtx.writeAndFlush(new TextWebSocketFrame(messageReceive));
+                    try {
+                        targetCtx.writeAndFlush(new TextWebSocketFrame(objectMapper.writeValueAsString(messageReceive)));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
 //                    ctx.writeAndFlush(new TextWebSocketFrame("用户 " + toUserId + " 不在线"));
@@ -167,18 +225,47 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<TextWebSocke
 
                 System.out.println(sender_id);
 
-                WGroupMessage groupMessage = mapper.treeToValue(dataNode, WGroupMessage.class);
-                if (StringUtils.isBlank(groupMessage.getContent())) {
-                    ctx.writeAndFlush(new TextWebSocketFrame("消息内容不能为空"));
-                    return;
+                WGroupMessage groupMessage = null;
+                try {
+                    groupMessage = mapper.treeToValue(dataNode, WGroupMessage.class);
+                    groupMessage.setCreate_time(LocalDateTime.now());
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
                 }
+//                if (StringUtils.isBlank(groupMessage.getContent())) {
+//                    ctx.writeAndFlush(new TextWebSocketFrame("消息内容不能为空"));
+//                    return;
+//                }
 
                 groupMessage.setSender_id(sender_id);
+                file = null;
+                if (2<=groupMessage.getType() && groupMessage.getType()<=5) {
+                    uploadSubmit upload = null;
+                    try {
+                        upload = mapper.treeToValue(dataNode.get("file"), uploadSubmit.class);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    if (upload != null) {
+                        if (ossService.fileExists(upload.getKey())) {
+                            file = fileService.uploadSubmit(sender_id, upload, false);
+                            String url = ossService.generateDownloadUrl(file.getFile_key(), AliOssService.EXPIRE_TIME_7_DAY);
+                            groupMessage.setFile_url(url);
+                            groupMessage.setFile_id(file.getFile_id());
+                        } else {
+                            ctx.writeAndFlush(new TextWebSocketFrame("文件上传失败"));
+                            return;
+                        }
+                    }
+                }
 
                 String group_id = groupMessage.getGroup_id();
-                String messageReceiveGroup = mapper.writeValueAsString(dataNode);
-
+//                String messageReceive = mapper.writeValueAsString(dataNode);
                 List<SUser> members = groupMessageService.getGroupMembers(group_id);
+
+                Map<String, Object> messageReceiveGroup = BeanUtil.beanToMap(groupMessage);
+                messageReceiveGroup.put("file", file);
 
                 try {
                     for (SUser member : members) {
@@ -189,7 +276,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<TextWebSocke
 
                         if (targetCtxGroup != null) {
                             //  转发消息
-                            targetCtxGroup.writeAndFlush(new TextWebSocketFrame(messageReceiveGroup));
+                            targetCtxGroup.writeAndFlush(new TextWebSocketFrame(objectMapper.writeValueAsString(messageReceiveGroup)));
                             gmr.setIs_read(true);
                         } else {
                             // ctx.writeAndFlush(new TextWebSocketFrame("用户 " + toUserId + " 不在线"));

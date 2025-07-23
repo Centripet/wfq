@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.wfq.wufangquan.controller.requestFormation.uploadSubmitRequest;
 import org.wfq.wufangquan.entity.regen.WFile;
+import org.wfq.wufangquan.entity.res.uploadSubmit;
 import org.wfq.wufangquan.mapper.WFileMapper;
 import org.wfq.wufangquan.service.AliOssService;
 import org.wfq.wufangquan.service.IWFileService;
@@ -54,6 +55,25 @@ public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements
                         .build()
         );
         return UUID;
+    }
+
+    @Override
+    public WFile uploadSubmit(String userId, uploadSubmit upload, boolean is_public_read) {
+        String UUID = generateUUID();
+        WFile file = WFile.builder()
+                .file_id(UUID)
+                .uploader(userId)
+                .file_key(upload.getKey())
+                .title(upload.getTitle())
+                .info(upload.getInfo())
+                .type(upload.getType())
+                .suffix(upload.getSuffix())
+                .create_time(LocalDateTime.now())
+                .is_public_read(is_public_read)
+                .origin_name(upload.getOrigin_name())
+                .build();
+        wFileMapper.insert(file);
+        return file;
     }
 
     @Override

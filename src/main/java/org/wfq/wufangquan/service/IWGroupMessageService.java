@@ -8,6 +8,7 @@ import org.wfq.wufangquan.entity.regen.WGroupMessageRead;
 import org.wfq.wufangquan.entity.regen.WUser;
 import org.wfq.wufangquan.entity.res.TGroupMessage;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,5 +28,5 @@ public interface IWGroupMessageService extends IService<WGroupMessage> {
 
     void addNewReadMessage(WGroupMessageRead gmr);
 
-    List<WGroupMessage> messageHistory(String userId, messageHistoryRequest request);
+    List<Map<String, Object>> messageHistory(String userId, messageHistoryRequest request);
 }
