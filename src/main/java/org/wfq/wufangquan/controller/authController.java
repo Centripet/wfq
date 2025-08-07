@@ -93,6 +93,8 @@ public class authController {
                     .department(user.getDepartment())
                     .build();
 
+            System.out.println(payload.toString());
+
             String accessToken = jwtService.generateAccessToken(payload);
             String refreshToken = jwtService.generateRefreshToken(payload);
 
