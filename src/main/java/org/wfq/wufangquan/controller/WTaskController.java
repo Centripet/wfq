@@ -1,4 +1,4 @@
-package org.wfq.wufangquan;
+package org.wfq.wufangquan.controller;
 
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.wfq.wufangquan.controller.requestFormation.createTaskRequest;
-import org.wfq.wufangquan.controller.requestFormation.uploadSubmitRequest;
+import org.wfq.wufangquan.controller.requestFormation.*;
 import org.wfq.wufangquan.entity.JwtPayload;
+import org.wfq.wufangquan.entity.regen.WAnnotation;
 import org.wfq.wufangquan.entity.regen.WFile;
 import org.wfq.wufangquan.entity.regen.WProjectTask;
+import org.wfq.wufangquan.entity.regen.WTaskStatus;
 import org.wfq.wufangquan.service.AliOssService;
 import org.wfq.wufangquan.service.IWFileService;
 import org.wfq.wufangquan.service.IWProjectTaskService;
@@ -57,7 +58,7 @@ public class WTaskController {
         if (!request.files().isEmpty()) {
             Map<uploadSubmitRequest, Boolean> keyMap = ossService.fileExistsList(request.files());
 
-            if (ossService.fileExists(keyMap)) {
+            if (!ossService.fileExists(keyMap)) {
                 return ApiResponse.fail(400, "文件上传未全部成功",keyMap);
             }
 
@@ -75,15 +76,17 @@ public class WTaskController {
     @PostMapping("/task_list")
     @ApiResponseWrap
     public ApiResponse<?> task_list(
-            @RequestBody taskListRequest request,
+            @RequestBody taskListRequest req,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
+        taskListRequest request = new taskListRequest(
+                req.str(),
+                req.method(),
+                (req.page() == null) ? 1 : req.page(),
+                (req.size() == null) ? 10 : req.size()
+        );
 
-
-        return ApiResponse.success(request);
+        return ApiResponse.success(projectTaskService.taskList(request));
     }
 
 
@@ -93,12 +96,10 @@ public class WTaskController {
             @RequestBody taskDetailRequest request,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
 
+        Map<String, Object> res = projectTaskService.taskDetail(request);
 
-        return ApiResponse.success(request);
+        return ApiResponse.success(res);
     }
 
 
@@ -108,12 +109,36 @@ public class WTaskController {
             @RequestBody taskModifyRequest request,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
+        String user_id = payload.getUser_id();
+
+        if (payload.getRole().equals("ADMIN") || payload.getRole().equals("SUPERVISOR")) {
+
+            List<WFile> wFiles;
+            if (!request.files().isEmpty()) {
+                Map<uploadSubmitRequest, Boolean> keyMap = ossService.fileExistsList(request.files());
+
+                if (!ossService.fileExists(keyMap)) {
+                    return ApiResponse.fail(400, "文件上传未全部成功",keyMap);
+                }
+
+                wFiles = fileService.uploadSubmitMult(user_id, keyMap);
+            } else {
+                wFiles = null;
+            }
 
 
-        return ApiResponse.success(request);
+            if (projectTaskService.taskModify(user_id, request, wFiles)) {
+                return ApiResponse.success("success");
+            } else {
+                return ApiResponse.fail(400, "任务已经处于进行中或已完成或不存在");
+            }
+
+        } else {
+            return ApiResponse.fail(403, "权限不足");
+        }
+
     }
 
 
@@ -123,12 +148,20 @@ public class WTaskController {
             @RequestBody taskDeleteRequest request,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
 
+        if (payload.getRole().equals("ADMIN") || payload.getRole().equals("SUPERVISOR")) {
+            if (projectTaskService.taskDelete(request)) {
+                return ApiResponse.success("success");
+            } else {
+                return ApiResponse.fail(400, "任务已经处于进行中或已完成或不存在");
+            }
 
-        return ApiResponse.success(request);
+        } else {
+            return ApiResponse.fail(403, "权限不足");
+        }
+
     }
 
 
@@ -138,12 +171,10 @@ public class WTaskController {
             @RequestBody taskStatusRequest request,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
 
-
-        return ApiResponse.success(request);
+        return projectTaskService.task_status(payload, request);
     }
 
 
@@ -154,12 +185,11 @@ public class WTaskController {
             @RequestBody taskAnnotationRequest request,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
+        String user_id = payload.getUser_id();
 
-
-        return ApiResponse.success(request);
+        return ApiResponse.success(projectTaskService.taskAnnotation(user_id, request));
     }
 
 
@@ -169,12 +199,10 @@ public class WTaskController {
             @RequestBody taskHistoryRequest request,
             HttpServletResponse response
     ) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
-//        String user_id = payload.getUser_id();
 
+        List<Map<String, Object>> res = projectTaskService.task_history(request);
 
-        return ApiResponse.success(request);
+        return ApiResponse.success(res);
     }
 
 

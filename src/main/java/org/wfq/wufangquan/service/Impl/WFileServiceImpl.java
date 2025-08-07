@@ -126,9 +126,11 @@ public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements
         String file_key = (String) file.get("file_key");
         if ((Boolean) file.get("is_public_read")) {
             String url = ossService.generatePublicUrl(file_key);
+            System.out.println(url);
             return fileViewService.generateKkFilePreviewUrl(url);
         } else {
             String url = ossService.generateDownloadUrl(file_key, AliOssService.EXPIRE_TIME_TEN_MIN);
+            System.out.println(url);
             return fileViewService.generateKkFilePreviewUrl(url);
         }
 
@@ -137,12 +139,31 @@ public class WFileServiceImpl extends ServiceImpl<WFileMapper, WFile> implements
     @Override
     public Map<String, Object> filePreview(String file_id) {
         Map<String, Object> file = this.getFileById(file_id);
-        String url = this.filePreviewUrl(file);
-        file.put("preview_url", url);
+        String url = this.fileGetUrl(file);
+        file.put("oss_url", url);
+        file.put("preview_url", fileViewService.generateKkFilePreviewUrl(url));
         return file;
     }
 
+    @Override
+    public List<WFile> generateUrlForEntity(List<WFile> files) {
 
+        for (WFile file : files) {
+            String oss_url = null;
+            if (file.getIs_public_read()) {
+                oss_url = ossService.generatePublicUrl(file.getFile_key());
+                System.out.println(oss_url);
+            } else {
+                oss_url = ossService.generateDownloadUrl(file.getFile_key(), AliOssService.EXPIRE_TIME_ONE_HOUR);
+                System.out.println(oss_url);
+            }
+
+            file.setOss_url(oss_url);
+            file.setPreview_url(fileViewService.generateKkFilePreviewUrl(oss_url));
+        }
+
+        return files;
+    }
 
 
 }

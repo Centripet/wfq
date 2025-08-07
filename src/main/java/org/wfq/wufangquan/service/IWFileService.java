@@ -34,5 +34,6 @@ public interface IWFileService extends IService<WFile> {
 
     Map<String, Object> filePreview(String file_id);
 
+    List<WFile> generateUrlForEntity(List<WFile> files);
 
 }

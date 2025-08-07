@@ -22,8 +22,10 @@ spring:
   security:
     user:
       name: admin
-      password: 123
+      password: p[];'\,./
       roles: ADMIN
+  elasticsearch:
+    uris: http://localhost:49200
 
 server:
   port: 48080

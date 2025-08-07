@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.wfq.wufangquan.controller.requestFormation.projectOverviewRequest;
 import org.wfq.wufangquan.controller.requestFormation.taskAxisRequest;
+import org.wfq.wufangquan.controller.requestFormation.taskSearchRequest;
 import org.wfq.wufangquan.entity.JwtPayload;
+import org.wfq.wufangquan.es.ElasticSearchService;
 import org.wfq.wufangquan.service.IWProjectService;
 import org.wfq.wufangquan.wrapper.responseHandle.ApiResponse;
 import org.wfq.wufangquan.wrapper.responseHandle.ApiResponseWrap;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -32,6 +36,7 @@ import java.util.Map;
 public class WProjectController {
 
     private final IWProjectService projectService;
+    private final ElasticSearchService elasticSearchService;
 
     @PostMapping("/taskAxis")
     @ApiResponseWrap
@@ -47,19 +52,35 @@ public class WProjectController {
     }
 
 // 全文搜索*
-//    @PostMapping("/taskSearch")
-//    @ApiResponseWrap
-//    public ApiResponse<?>  taskSearch(
-//            @RequestBody taskSearchRequest request,
-//            HttpServletResponse response
-//    ) {
+    @PostMapping("/taskSearch")
+    @ApiResponseWrap
+    public ApiResponse<?>  taskSearch(
+            @RequestBody taskSearchRequest request,
+            HttpServletResponse response
+    ) throws IOException {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
 //        String user_id = payload.getUser_id();
-//
-//
-//        return ApiResponse.success("");
-//    }
+
+
+        return ApiResponse.success(elasticSearchService.searchProject(request.project_id(), request.keyword()));
+    }
+
+
+    @PostMapping("/project_overview")
+    @ApiResponseWrap
+    public ApiResponse<?>  project_overview(
+            @RequestBody projectOverviewRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        JwtPayload payload = (JwtPayload) authentication.getPrincipal();
+//        String user_id = payload.getUser_id();
+
+        return ApiResponse.success(projectService.projectOverview(request));
+    }
+
+
 
 
 

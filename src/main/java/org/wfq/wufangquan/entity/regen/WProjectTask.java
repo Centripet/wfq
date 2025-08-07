@@ -40,13 +40,25 @@ public class WProjectTask implements Serializable {
     /**
      * 0未开始1进行中2已完成
      */
-    private Boolean status;
+    private int status;
 
     private LocalDateTime deadline;
 
     private String description;
 
     private LocalDateTime create_time;
+
+    private String title;
+
+    private int priority;
+
+    private String assignee_id;
+
+    private String task_status;
+
+    private String creator;
+
+    private String update_time;
 
     public static final String TASK_ID = "task_id";
 
@@ -64,6 +76,18 @@ public class WProjectTask implements Serializable {
 
     public static final String CREATE_TIME = "create_time";
 
+    public static final String TITLE = "title";
+
+    public static final String PRIORITY = "priority";
+
+    public static final String ASSIGNEE_ID = "assignee_id";
+
+    public static final String TASK_STATUS = "task_status";
+
+    public static final String CREATOR = "creator";
+
+    public static final String UPDATE_TIME = "update_time";
+
     @Override
     public String toString() {
         return "W_project_task{" +
@@ -75,6 +99,12 @@ public class WProjectTask implements Serializable {
         ", deadline = " + deadline +
         ", description = " + description +
         ", create_time = " + create_time +
+                ", title = " + title +
+                ", priority = " + priority +
+                ", assignee_id = " + assignee_id +
+                ", task_status = " + task_status +
+                ", creator = " + creator +
+                ", update_time = " + update_time +
         "}";
     }
 }

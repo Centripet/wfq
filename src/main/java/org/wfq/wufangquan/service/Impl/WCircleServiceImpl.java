@@ -14,6 +14,8 @@ import org.wfq.wufangquan.entity.regen.*;
 import org.wfq.wufangquan.mapper.*;
 import org.wfq.wufangquan.service.AliOssService;
 import org.wfq.wufangquan.service.IWCircleService;
+import org.wfq.wufangquan.service.IWFileService;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class WCircleServiceImpl extends ServiceImpl<WCircleMapper, WCircle> impl
     private final WFileMapper wFileMapper;
     private final WUserMapper wUserMapper;
     private final AliOssService aliOssService;
-
+    private final IWFileService fileService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -126,7 +128,7 @@ public class WCircleServiceImpl extends ServiceImpl<WCircleMapper, WCircle> impl
                                     .eq("circle_id", circle_id)
                     );
 
-        files = aliOssService.generateUrlForEntity(files);
+        files = fileService.generateUrlForEntity(files);
 
         SUser publisher = BeanUtil.copyProperties(
                 wUserMapper.selectOne(

@@ -147,7 +147,7 @@ public class WCircleController {
         if (!request.add_files().isEmpty()) {
             Map<uploadSubmitRequest, Boolean> keyMap = aliOssService.fileExistsList(request.add_files());
 
-            if (aliOssService.fileExists(keyMap)) {
+            if (!aliOssService.fileExists(keyMap)) {
                 return ApiResponse.fail(400, "文件上传未全部成功",keyMap);
             }
 

@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("w_user")
+@TableName("w_notice")
 public class WNotice implements Serializable {
 
     @Serial

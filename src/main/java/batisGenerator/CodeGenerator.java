@@ -25,7 +25,7 @@ public class CodeGenerator {
                                     System.getProperty("user.dir") + "/src/main/resources/mapper"));
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("w_about")
+                    builder.addInclude("w_project_task")
                             .addTablePrefix("t_", "tbl_")
                             .entityBuilder()
                             .enableColumnConstant() // 添加注解保留字段名

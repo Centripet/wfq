@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.wfq.wufangquan.entity.JwtPayload;
+import org.wfq.wufangquan.es.ElasticSearchService;
 
 
 @RestController
 @RequestMapping("/api/test")
 @RequiredArgsConstructor
 public class testController {
+
+    private final ElasticSearchService elasticSearchService;
 
     @PostMapping("/test")
     public String register(@RequestBody String str) {
@@ -22,6 +25,7 @@ public class testController {
         JwtPayload payload = (JwtPayload) authentication.getPrincipal();
         String userId = payload.getUser_id();
         System.out.println(userId);
+
         return payload.toString();
     }
 

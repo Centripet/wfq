@@ -50,7 +50,12 @@ public class authController {
     ) {
         WUser user = usersService.loginVerification(request);
         if (user != null) {
-            JwtPayload payload = new JwtPayload(user.getUser_id(), user.getRole());
+            JwtPayload payload = JwtPayload.builder()
+                    .user_id(user.getUser_id())
+                    .role(user.getRole())
+                    .department(user.getDepartment())
+                    .build();
+
             String accessToken = jwtService.generateAccessToken(payload);
             String refreshToken = jwtService.generateRefreshToken(payload);
 
@@ -82,7 +87,12 @@ public class authController {
                 return ApiResponse.fail(400, "验证码错误");
             }
 
-            JwtPayload payload = new JwtPayload(user.getUser_id(), user.getRole());
+            JwtPayload payload = JwtPayload.builder()
+                    .user_id(user.getUser_id())
+                    .role(user.getRole())
+                    .department(user.getDepartment())
+                    .build();
+
             String accessToken = jwtService.generateAccessToken(payload);
             String refreshToken = jwtService.generateRefreshToken(payload);
 

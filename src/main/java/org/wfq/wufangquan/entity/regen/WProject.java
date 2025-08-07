@@ -49,6 +49,8 @@ public class WProject implements Serializable {
      */
     private String description;
 
+    private String current_stage;
+
     public static final String PROJECT_ID = "project_id";
 
     public static final String STATUS = "status";
@@ -61,6 +63,8 @@ public class WProject implements Serializable {
 
     public static final String DESCRIPTION = "description";
 
+    public static final String CURRENT_STAGE = "current_stage";
+
     @Override
     public String toString() {
         return "W_project{" +
@@ -70,6 +74,7 @@ public class WProject implements Serializable {
         ", project_name = " + project_name +
         ", deadline = " + deadline +
         ", description = " + description +
+                ", current_stage = " + current_stage +
         "}";
     }
 }
